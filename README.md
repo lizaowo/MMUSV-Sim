@@ -1,25 +1,6 @@
-<h1 align="center">MMUSV-Sim</h1>
-<p align="center"><b>A Maritime Simulation Platform for Multi-USV Cooperative Perception</b></p>
+<h1 align="center">MMUSV-Sim: A Maritime Simulation Platform for Multi-USV Cooperative Perception</h1>
 
-<p align="center">
-Ziao Li<sup>1</sup>, Jianxiong Ye<sup>1</sup>, Biao Tang<sup>1</sup>, Leping Zhang<sup>2</sup>, Kun Zuo<sup>1</sup>,<br>
-Siyu Huang<sup>1</sup>, Mengtang Li<sup>1</sup>, Deyu Meng<sup>3</sup>, and Chenqiang Gao<sup>1</sup>
-</p>
-
-<p align="center">
-<sup>1</sup> School of Intelligent Systems Engineering, Sun Yat-sen University<br>
-<sup>2</sup> School of Intelligent Imagery Engineering, Beijing Film Academy<br>
-<sup>3</sup> School of Mathematics and Statistics, Xi'an Jiaotong University
-</p>
-
-<p align="center">
-<a href="#overview">Overview</a> &middot;
-<a href="#demo">Demo</a> &middot;
-<a href="#simulator">Simulator</a> &middot;
-<a href="#maru2u-200m-dataset">Dataset</a> &middot;
-<a href="#cooperative-perception-benchmark">Benchmark</a> &middot;
-<a href="#release-progress">Release Progress</a>
-</p>
+<p align="center"><a href="https://arxiv.org/abs/2608.14207">arXiv:2608.14207</a></p>
 
 ## Overview
 
@@ -120,15 +101,7 @@ Early Fusion improves LiDAR AP@0.5 by **17.20 percentage points** over the singl
 
 ## Release Progress
 
-This checklist tracks what is publicly available in this repository.
-
-- [x] Project overview and paper figures
-- [x] Video demonstration
+- [x] Paper
 - [ ] Simulator executable
-- [ ] Unreal Engine project and source
-- [ ] Data acquisition and annotation tools
-- [ ] MarU2U-200m dataset and split files
-- [ ] Benchmark training and evaluation code
-- [ ] Setup instructions and usage examples
-
-The remaining resources are being prepared. Download links and instructions will be added here as each release becomes available; no release date has been announced.
+- [ ] Dataset
+- [ ] Benchmark
