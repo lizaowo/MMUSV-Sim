@@ -1,40 +1,134 @@
-# MMUSV-Sim
+<h1 align="center">MMUSV-Sim</h1>
+<p align="center"><b>A Maritime Simulation Platform for Multi-USV Cooperative Perception</b></p>
 
-**A Maritime Simulation Platform for Multi-USV Cooperative Perception**
+<p align="center">
+Ziao Li<sup>1</sup>, Jianxiong Ye<sup>1</sup>, Biao Tang<sup>1</sup>, Leping Zhang<sup>2</sup>, Kun Zuo<sup>1</sup>,<br>
+Siyu Huang<sup>1</sup>, Mengtang Li<sup>1</sup>, Deyu Meng<sup>3</sup>, and Chenqiang Gao<sup>1</sup>
+</p>
 
-Ziao Li<sup>1</sup>, Jianxiong Ye<sup>1</sup>, Biao Tang<sup>1</sup>, Leping Zhang<sup>2</sup>, Kun Zuo<sup>1</sup>, Siyu Huang<sup>1</sup>, Mengtang Li<sup>1</sup>, Deyu Meng<sup>3</sup>, and Chenqiang Gao<sup>1</sup>
-
-<sup>1</sup> School of Intelligent Systems Engineering, Sun Yat-sen University  
-<sup>2</sup> School of Intelligent Imagery Engineering, Beijing Film Academy  
+<p align="center">
+<sup>1</sup> School of Intelligent Systems Engineering, Sun Yat-sen University<br>
+<sup>2</sup> School of Intelligent Imagery Engineering, Beijing Film Academy<br>
 <sup>3</sup> School of Mathematics and Statistics, Xi'an Jiaotong University
+</p>
 
-MMUSV-Sim is a maritime simulation and data-generation platform for multi-USV cooperative perception, built on Unreal Engine 5 and Project AirSim. It supports configurable island, open-sea, and port environments, synchronized multimodal observations, and vessel annotations derived from a shared world frame.
+<p align="center">
+<a href="#overview">Overview</a> &middot;
+<a href="#demo">Demo</a> &middot;
+<a href="#simulator">Simulator</a> &middot;
+<a href="#maru2u-200m-dataset">Dataset</a> &middot;
+<a href="#cooperative-perception-benchmark">Benchmark</a> &middot;
+<a href="#release-progress">Release Progress</a>
+</p>
 
-## Video demo
+## Overview
 
-[![MMUSV-Sim video demo](assets/demo_preview.png)](media/MMUSV-Sim_Demo.mp4)
+Islands, port infrastructure, and nearby vessels can hide targets from an individual unmanned surface vehicle (USV). **MMUSV-Sim** provides a controlled environment for studying how multiple USVs can share complementary observations and perceive vessels beyond a single viewpoint.
 
-[Open the demo](media/MMUSV-Sim_Demo.mp4) | [Download the MP4](https://raw.githubusercontent.com/lizaowo/MMUSV-Sim/main/media/MMUSV-Sim_Demo.mp4)
+Built on **Unreal Engine 5 and Project AirSim**, the platform connects configurable maritime scenarios, synchronized multimodal sensing, and annotations in a shared world frame. It supports three parts of this project:
 
-The 111-second demo includes:
+- **Simulation:** configure environments, vessel fleets, trajectories, and sensors.
+- **MarU2U-200m:** generate synchronized multi-USV RGB-LiDAR observations for cooperative perception.
+- **Benchmarking:** evaluate cooperative bird's-eye-view (BEV) vessel detection, including pose errors and communication delays.
 
-- Maritime environments, vessel assets, weather, and time-of-day settings.
-- Synchronized multi-USV sensing and multimodal observations and annotations.
-- Cooperative vessel detection with LiDAR and RGB-LiDAR inputs.
-- Examples with collaborator pose errors and communication delays.
+<p align="center">
+  <img src="assets/cooperative_perception.png" alt="A target vessel hidden from USV 1 by an island is visible to USV 2 and USV 3." width="900">
+</p>
 
-The video uses English on-screen captions and has no audio. Detection sequences are shown at 2x playback, as labeled. Format: H.264 MP4, 1920 x 1080, 30 fps.
+*Complementary viewpoints reveal a vessel occluded from USV 1. Observations from the three USVs can be aligned in a shared BEV frame.*
 
-## Release status
+> The demo and project figures are available now. The simulator, dataset, and code are being prepared for release; see the [release progress](#release-progress) below.
 
-This repository currently provides the project overview and video demo.
+## Demo
 
-| Resource | Status |
-| --- | --- |
-| Video demo | Available |
-| Unreal Engine project and source | Not yet released |
-| MarU2U-200m dataset | Not yet released |
-| Data acquisition and annotation code | Not yet released |
-| Training and evaluation code | Not yet released |
+<!-- DEMO_PLAYER_START -->
 
-The remaining resources are being prepared. No release date has been announced.
+https://github.com/user-attachments/assets/82407169-73d3-4c01-ad81-3132278c449d
+
+<!-- DEMO_PLAYER_END -->
+
+Play the complete demo above in **720p**, or [download the original 1080p MP4](https://raw.githubusercontent.com/lizaowo/MMUSV-Sim/main/media/MMUSV-Sim_Demo.mp4).
+
+The **1:51 demo** covers maritime environments and weather, synchronized sensing and annotations, cooperative vessel detection, and examples with collaborator pose errors and communication delays. It has English on-screen captions and no audio. Detection sequences play at 2x speed where labeled.
+
+## Simulator
+
+### Maritime environments and vessel fleets
+
+Create scenarios in **island, open-sea, and port** environments with configurable time of day, weather, illumination, and wave settings. A library of more than 30 vessel assets supports varied target sizes, layouts, and occlusion conditions. Vessel trajectories and sensors can be specified through manual configurations or rule-based batch generation.
+
+<p align="center">
+  <img src="assets/maritime_environments.png" alt="Island, port, and open-sea environments, vessel assets, time-of-day changes, and cloudy, foggy, rainy, and snowy weather." width="900">
+</p>
+
+### From scenario configuration to annotated observations
+
+The acquisition interface coordinates vessel motion and records sensor observations and poses from the same paused scene state. Offline processing transforms vessel geometry into each agent's sensor frames and produces 2D, 3D, and BEV annotations.
+
+<p align="center">
+  <img src="assets/platform_architecture.png" alt="MMUSV-Sim architecture connecting the simulation engine, scenario configuration, synchronized acquisition, and offline annotation export." width="1000">
+</p>
+
+The configurable sensor suite includes surround-view RGB, depth, semantic segmentation, top-view cameras, LiDAR, and ray-cast maritime radar. Vessel motion is kinematic, with synthetic heave, roll, and pitch for perception data generation.
+
+<details>
+<summary><b>View sensor and annotation examples</b></summary>
+
+<p align="center">
+  <img src="assets/multimodal_outputs.png" alt="Surround RGB, depth and semantic images, radar PPI, top-view semantic maps, and a LiDAR point cloud generated by MMUSV-Sim." width="900">
+</p>
+
+Examples of the simulator's outputs. MarU2U-200m uses the synchronized RGB-LiDAR configuration described below.
+
+</details>
+
+## MarU2U-200m Dataset
+
+MarU2U-200m is a simulated cooperative vessel perception dataset with **2-4 instrumented USVs per sequence** and a **200 m LiDAR range**. Each scene frame groups all agents' observations at a common acquisition index, together with the poses needed for spatial alignment.
+
+| Dataset statistic | Count |
+| --- | ---: |
+| Multi-USV sequences | 341 |
+| Synchronized scene frames | 14,385 |
+| Per-agent records / LiDAR sweeps | 33,525 |
+| RGB images | 134,100 |
+
+Each instrumented USV carries four surround-view RGB cameras (1024 x 512, 90-degree field of view each) and a 64-channel LiDAR with 360-degree horizontal coverage. Both modalities are captured at 5 Hz. The sequence-level split contains **239 training, 34 validation, and 68 test sequences**.
+
+<p align="center">
+  <img src="assets/synchronized_observations.png" alt="Synchronized camera views from three USVs and their registered LiDAR point clouds in a port scene." width="700">
+</p>
+
+*A synchronized sample: camera observations from three USVs and their registered LiDAR point clouds. Red, green, and blue points identify the contributing USVs.*
+
+## Cooperative Perception Benchmark
+
+The benchmark evaluates BEV vessel detection with **LiDAR** and **RGB-LiDAR** inputs. It compares a single-USV baseline with early, intermediate, and late fusion, and examines performance across target scales and ranges, collaborator pose errors, and temporal delays.
+
+Selected results on the MarU2U-200m test set are shown below. AP@0.5 is reported as a percentage.
+
+| Method | Fusion | LiDAR AP@0.5 | RGB-LiDAR AP@0.5 |
+| --- | --- | ---: | ---: |
+| Single USV | None | 64.26 | 63.35 |
+| Late Fusion | Late | 77.14 | 76.96 |
+| Early Fusion | Early | **81.46** | **81.98** |
+| F-Cooper | Intermediate | 69.00 | 73.55 |
+| AttFusion | Intermediate | 71.14 | 74.09 |
+| Where2comm | Intermediate | 73.88 | 74.75 |
+
+Early Fusion improves LiDAR AP@0.5 by **17.20 percentage points** over the single-USV baseline. Adding RGB features improves the evaluated intermediate fusion methods, with the largest gain of **4.55 points** for F-Cooper.
+
+## Release Progress
+
+This checklist tracks what is publicly available in this repository.
+
+- [x] Project overview and paper figures
+- [x] Video demonstration
+- [ ] Simulator executable
+- [ ] Unreal Engine project and source
+- [ ] Data acquisition and annotation tools
+- [ ] MarU2U-200m dataset and split files
+- [ ] Benchmark training and evaluation code
+- [ ] Setup instructions and usage examples
+
+The remaining resources are being prepared. Download links and instructions will be added here as each release becomes available; no release date has been announced.
