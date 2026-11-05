@@ -104,3 +104,21 @@ Early Fusion improves LiDAR AP@0.5 by **17.20 percentage points** over the singl
 - [ ] Simulator executable
 - [ ] Dataset
 - [ ] Benchmark
+
+## Citation
+
+If you find this work useful, please cite our paper.
+
+```bibtex
+@misc{li2026mmusvsim,
+  title={{MMUSV-Sim}: A Maritime Simulation Platform for Multi-USV Cooperative Perception},
+  author={Ziao Li and Jianxiong Ye and Biao Tang and Leping Zhang
+          and Kun Zuo and Siyu Huang and Mengtang Li
+          and Deyu Meng and Chenqiang Gao},
+  year={2026},
+  eprint={2608.14207},
+  archivePrefix={arXiv},
+  primaryClass={cs.RO},
+  url={https://arxiv.org/abs/2608.14207}
+}
+```
